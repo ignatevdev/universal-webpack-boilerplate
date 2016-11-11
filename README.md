@@ -8,6 +8,7 @@ This project is a massive rework of [this boilerplate](https://github.com/halt-h
 
 + Universal (server) rendering
 + Fully immutable state
++ ESLINT
 + react-router 4 (currently beta)
 + react-hot-loader 3
 + Own component for supporting native gettext localization
