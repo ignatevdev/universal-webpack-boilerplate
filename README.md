@@ -1,6 +1,6 @@
 # universal-webpack-boilerplate
 
-This is a boilerplate of a project built with react and redux and based on [universal-webpack](https://github.com/halt-hammerzeit/universal-webpack).
+This is a boilerplate of a project built with react and redux, based on [universal-webpack](https://github.com/halt-hammerzeit/universal-webpack).
 
 This project is a massive rework of [this boilerplate](https://github.com/halt-hammerzeit/webpack-react-redux-isomorphic-render-example) with some ideas taken from [this project](https://github.com/erikras/react-redux-universal-hot-example)
 
@@ -22,7 +22,7 @@ This project is a massive rework of [this boilerplate](https://github.com/halt-h
 
 	In this file you can override any variable defined inside src/config/default.js following the same name path
 
-3. Create an empty file called .env inside the root of the project
+3. Create an empty file called .env inside the root of the project.
 In this file you can define any PATH variables which you don't want to specify every time you run the server
 
 	For more - see [this](https://github.com/motdotla/dotenv)
