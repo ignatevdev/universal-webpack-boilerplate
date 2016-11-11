@@ -1,0 +1,37 @@
+# maybe some logs
+/log
+
+# webpack build target folder
+/webroot/build
+/webroot/index.html
+
+# npm modules
+# https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
+/node_modules
+
+# npm errors
+npm-debug.log
+
+# github pages
+gh-pages/
+
+# happypack cache files
+.happypack
+
+# for OS X users
+.DS_Store
+
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# test coverage folder
+coverage
+
+.env
+
+src/config/config.js

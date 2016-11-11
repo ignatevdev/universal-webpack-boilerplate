@@ -1,0 +1,38 @@
+@require "~theme/fonts/fonts.styl"
+
+global-reset()
+
+*
+	box-sizing border-box
+	box-shadow none
+	border none
+	outline none
+	text-decoration none
+
+html
+	position relative
+	height 100%
+
+body
+	height 100%
+
+	font-family 'Roboto', sans-serif
+
+a
+	&:hover
+		text-decoration none
+
+input
+textarea
+select
+	font-family 'Roboto', sans-serif
+
+	+placeholder()
+		font-family 'Roboto', sans-serif
+
+textarea
+	resize none
+
+// :global
+// 	#content
+// 		min-height 100%
