@@ -4,7 +4,7 @@ import meta from 'meta';
 import {Match, Miss} from 'react-router';
 import {Home} from 'containers';
 
-require('./App.styl');
+console.log(require('./App.css'));
 
 export default class App extends PureComponent {
     static propTypes = {

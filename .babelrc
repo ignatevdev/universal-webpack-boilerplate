@@ -1,16 +1,44 @@
 {
-	"presets":
-	[
-		"react",
-		["es2015", {"modules": "commonjs"}],
-		"stage-0"
-	],
-	"plugins":
-	[
-		"react-hot-loader/babel",
-		"transform-runtime",
-		"add-module-exports",
-		"transform-decorators-legacy",
-		"transform-react-display-name"
-	]
+	"env": {
+		"development": {
+			"presets": [
+				"react",
+				["es2015", {"modules": "commonjs"}],
+				"stage-0"
+			],
+			"plugins": [
+				"react-hot-loader/babel",
+				"add-module-exports",
+				"transform-decorators-legacy",
+				"transform-react-display-name"
+			]
+		},
+		"commonjs": {
+			"presets": [
+				"react",
+				"es2015",
+				"stage-0"
+			],
+			"plugins": [
+				"react-hot-loader/babel",
+				"add-module-exports",
+				"transform-decorators-legacy",
+				"transform-react-display-name"
+			]
+		},
+		"es6": {
+			"presets": [
+				"react",
+				["es2015", {"loose": true, "modules": false}],
+				"stage-0"
+			],
+			"plugins": [
+				"react-hot-loader/babel",
+				"syntax-export-extensions",
+				"transform-export-extensions",
+				"transform-decorators-legacy",
+				"transform-react-display-name"
+			]
+		}
+	}
 }

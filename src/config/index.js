@@ -1,8 +1,9 @@
 // import fs from 'fs'
-import path from 'path'; // eslint-disable-line
-import minimist from 'minimist'; // eslint-disable-line
 
-import configuration from './default.js';
-import specificСonfiguration from './config.js';
+const path = require('path'); // eslint-disable-line
+const minimist = require('minimist'); // eslint-disable-line
 
-export default Object.assign(configuration, specificСonfiguration);
+const configuration = require('./default');
+const specificСonfiguration = require('./config');
+
+module.exports = Object.assign(configuration, specificСonfiguration);

@@ -58,13 +58,6 @@ export default class Html extends Component {
                         charSet="UTF-8"
                     />
 
-                    {__DEVELOPMENT__ &&
-                        // Not sure how to connect it dynamically
-                        <script
-                            src={`http://localhost:${config.server.http.port}/build/client/vendor.dll.js`}
-                            charSet="UTF-8"
-                        />
-                    }
                     <script src={assets.javascript.main} charSet="UTF-8" />
                 </body>
             </html>

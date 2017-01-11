@@ -1,5 +1,4 @@
-module.exports =
-{
+module.exports = {
     api: {
         host: 'http://demo-api.nichosting.dev.brainex.co/'
     },
