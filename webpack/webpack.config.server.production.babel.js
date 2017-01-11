@@ -6,6 +6,7 @@ const configuration = Object.assign({}, baseConfiguration);
 configuration.plugins = configuration.plugins.concat(
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.BABEL_ENV': JSON.stringify('production'),
 
         __CLIENT__: false,
         __SERVER__: true,

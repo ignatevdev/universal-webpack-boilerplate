@@ -13,23 +13,23 @@
 				"transform-react-display-name"
 			]
 		},
-		"commonjs": {
+		"production": {
 			"presets": [
+				["es2015", {"modules": false}],
 				"react",
-				"es2015",
 				"stage-0"
 			],
 			"plugins": [
-				"react-hot-loader/babel",
-				"add-module-exports",
+				"syntax-export-extensions",
+				"transform-export-extensions",
 				"transform-decorators-legacy",
 				"transform-react-display-name"
 			]
 		},
 		"es6": {
 			"presets": [
+				["es2015", {"modules": false}],
 				"react",
-				["es2015", {"loose": true, "modules": false}],
 				"stage-0"
 			],
 			"plugins": [

@@ -24,19 +24,12 @@ configuration.plugins.push(
         __DEVTOOLS__: true
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
-    // new webpack.DllReferencePlugin({
-    //     context: path.join(__dirname, '../'),
-    //     manifest: require(path.join(configuration.output.path, 'vendor-manifest.json')),
-    // }),
-
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.optimize.DedupePlugin(),
-    // new webpack.optimize.OccurrenceOrderPlugin(),
-    // new HappyPack({
-    //     id: 'js',
-    //     threads: 8
-    // }) // no need to specify loaders manually, yay!
+    new webpack.NamedModulesPlugin(),
+    new HappyPack({
+        id: 'js',
+        loaders: ['babel-loader'],
+        threads: 8
+    }) // no need to specify loaders manually, yay!
 );
 
 const host = `http://${applicationConfiguration.development.webpack.development_server.host}:${applicationConfiguration.development.webpack.development_server.port}`;
@@ -85,6 +78,13 @@ jsLoader.use.push({
         quiet: true,
         emitError: true,
         failOnError: true
+    }
+});
+
+jsLoader.use.unshift({
+    loader: 'happypack/loader',
+    options: {
+        id: 'js'
     }
 });
 

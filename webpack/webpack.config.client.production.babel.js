@@ -24,6 +24,7 @@ configuration.plugins = configuration.plugins.concat(
     // environment variables
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.BABEL_ENV': JSON.stringify('production'),
 
         __CLIENT__: true,
         __SERVER__: false,
@@ -32,19 +33,11 @@ configuration.plugins = configuration.plugins.concat(
         __DEVTOOLS__: false
     }),
 
-    // Omit duplicate modules
-    // new webpack.optimize.DedupePlugin(),
-
-    // Assign the module and chunk ids by occurrence count.
-    // Ids that are used often get lower (shorter) ids.
-    // This make ids predictable, reduces to total file size and is recommended.
-    // new webpack.optimize.OccurenceOrderPlugin(),
-    // new webpack.optimize.UglifyJsPlugin({
-    //     compress:
-    //     {
-    //         warnings: false
-    //     }
-    // })
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    })
 );
 
 export default configuration;

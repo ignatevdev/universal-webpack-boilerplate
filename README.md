@@ -7,12 +7,12 @@ This project is a massive rework of [this boilerplate](https://github.com/halt-h
 ## Feautures
 
 + Universal (server) rendering
++ Webpack 2
 + Fully immutable state
 + ESLINT
 + react-router 4 (currently beta)
 + react-hot-loader 3
 + Own component for supporting native gettext localization
-+ webpack-dll-plugin for faster dev build
 
 ## Installation
 1. `npm install`

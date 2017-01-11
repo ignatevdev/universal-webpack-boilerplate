@@ -2,7 +2,6 @@
 import path from 'path';
 import autoprefixer from 'autoprefixer';
 import poststylus from 'poststylus';
-import webpack from 'webpack';
 
 require('dotenv').config();
 
@@ -23,24 +22,11 @@ const fonts = [
 ].map((font) => {
     const rule = {
         test: font[0],
-        use: [{
-            loader: 'file-loader',
-            options: {
-                emitFile: false
-            }
-        }]
+        loader: 'file-loader'
     };
-
-    // if (font[1]) {
-    //     rule.use[0].options = {
-    //         mimetype: font[1]
-    //     };
-    // }
 
     return rule;
 });
-
-console.log(path.resolve(__dirname, '..', 'node_modules'));
 
 const assetsPath = path.resolve(rootFolder, 'webroot', 'build', 'client');
 
@@ -73,7 +59,7 @@ const configuration = {
                 test: regularExpressions.javascript,
                 // include: [path.resolve(rootFolder, 'code')],
                 // exclude: path.resolve(rootFolder, 'node_modules'),
-                exclude: '/node_modules/',
+                exclude: /node_modules/,
                 loaders: [
                     {
                         loader: 'babel-loader'
@@ -119,12 +105,12 @@ const configuration = {
                                 '~nib/lib/nib/index.styl',
                                 '~kouto-swiss/lib/kouto-swiss/index.styl'
                             ],
-                            // use: poststylus([
-                            //     autoprefixer({
-                            //         browsers: 'last 2 version'
-                            //     }),
-                            //     'lost'
-                            // ])
+                            use: poststylus([
+                                autoprefixer({
+                                    browsers: 'last 2 version'
+                                }),
+                                'lost'
+                            ])
                         }
                     }
                 ]
@@ -132,12 +118,8 @@ const configuration = {
             {
                 test: /\.(jpg|png)$/,
                 use: [
-                    {
-                        loader: 'img-loader'
-                    },
-                    {
-                        loader: 'file-loader'
-                    }
+                    'img-loader',
+                    'file-loader'
                 ]
             },
             {
@@ -150,27 +132,23 @@ const configuration = {
 
     resolve: {
         modules: [
-            path.resolve('src'),
+            path.resolve(__dirname, '..', 'src'),
             path.resolve('node_modules')
         ],
         alias: {
             components: path.resolve(__dirname, '../src/components'),
             containers: path.resolve(__dirname, '../src/containers'),
+            config: path.resolve(__dirname, '../src/config'),
             utils: path.resolve(__dirname, '../src/utils'),
             theme: path.resolve(__dirname, '../src/theme'),
             store: path.resolve(__dirname, '../src/store'),
             core: path.resolve(__dirname, '../src/core'),
+            meta: path.resolve(__dirname, '../src/meta'),
             localization: path.resolve(__dirname, '../src/localization')
         }
     },
 
-    plugins: [
-        // new webpack.LoaderOptionsPlugin({
-        //     options: {
-        //         context: path.resolve(__dirname, 'src')
-        //     }
-        // })
-    ]
+    plugins: []
 };
 
 export default configuration;

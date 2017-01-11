@@ -11,6 +11,8 @@ const publicPath = configuration.output.publicPath;
 // Network path for static files: fetch all statics from webpack development server
 configuration.output.publicPath = `http://${devServerHost}:${devServerPort}${publicPath}`;
 
+configuration.devtool = 'inline-source-map';
+
 configuration.plugins = configuration.plugins.concat(
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production'),
