@@ -2,25 +2,20 @@ import path from 'path';
 import webpack from 'webpack';
 import HappyPack from 'happypack';
 
+import {regularExpressions} from './webpack.config';
 import baseConfiguration from './webpack.config.client';
-import applicationConfiguration from '../src/config';
+
+const applicationConfiguration = require('../src/config');
 
 const configuration = baseConfiguration({ development: true, css_bundle: true });
-const regularExpressions = {
-    javascript: /\.js$/,
-    styles: /\.less$/
-};
 
 configuration.devtool = 'inline-source-map';
 
 configuration.plugins.push(
     // environment variables
     new webpack.DefinePlugin({
-        'process.env':
-        {
-            NODE_ENV: JSON.stringify('development'),
-            BABEL_ENV: JSON.stringify('development')
-        },
+        'process.env.NODE_ENV': JSON.stringify('development'),
+        'process.env.BABEL_ENV': JSON.stringify('es6'),
 
         __CLIENT__: true,
         __SERVER__: false,
@@ -28,16 +23,11 @@ configuration.plugins.push(
         __DEVELOPMENT__: true,
         __DEVTOOLS__: true
     }),
-    new webpack.DllReferencePlugin({
-        context: path.join(__dirname, '../'),
-        manifest: require(path.join(configuration.output.path, 'vendor-manifest.json')),
-    }),
-
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.NamedModulesPlugin(),
     new HappyPack({
         id: 'js',
+        loaders: ['babel-loader'],
         threads: 8
     }) // no need to specify loaders manually, yay!
 );
@@ -46,9 +36,9 @@ const host = `http://${applicationConfiguration.development.webpack.development_
 
 // enable webpack development server
 configuration.entry.main = [
+    'react-hot-loader/patch',
     `webpack-dev-server/client?${host}`,
     'webpack/hot/only-dev-server',
-    'react-hot-loader/patch',
     configuration.entry.main
 ];
 
@@ -60,16 +50,11 @@ configuration.output.publicPath = `http://${devServerHost}:${devServerPort}${con
 
 // Add React Hot Module Replacement plugin to `babel-loader`
 
-const jsLoader = configuration
-        .module
-        .loaders
-        .filter(
-            loader => (
-                loader.test.toString() === regularExpressions.javascript.toString()
-            )
-        )[0];
+const jsLoader = configuration.module.rules.find(
+    loader => loader.test.toString() === regularExpressions.javascript.toString()
+);
 
-const query = {
+jsLoader.use[0].options = {
     plugins: [
         [
             'react-transform',
@@ -86,16 +71,25 @@ const query = {
     ]
 };
 
-configuration.eslint = {
-    quiet: true,
-    emitError: true,
-    failOnError: true
-};
+jsLoader.use.push({
+    loader: 'eslint-loader',
+    options: {
+        configFile: path.resolve(__dirname, '../.eslintrc'),
+        quiet: true,
+        emitError: true,
+        failOnError: true
+    }
+});
 
-jsLoader.loaders[0] += `?${JSON.stringify(query)}`;
-jsLoader.loaders.push('eslint-loader');
-jsLoader.happy = {
-    id: 'js'
-};
+jsLoader.use.unshift({
+    loader: 'happypack/loader',
+    options: {
+        id: 'js'
+    }
+});
+
+// jsLoader.happy = {
+//     id: 'js'
+// };
 
 export default configuration;

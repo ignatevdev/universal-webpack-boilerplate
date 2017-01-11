@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import baseConfiguration from './webpack.config.server';
 
-import applicationConfiguration from '../src/config';
+const applicationConfiguration = require('../src/config');
 
 const configuration = Object.assign({}, baseConfiguration);
 
@@ -11,12 +11,12 @@ const publicPath = configuration.output.publicPath;
 // Network path for static files: fetch all statics from webpack development server
 configuration.output.publicPath = `http://${devServerHost}:${devServerPort}${publicPath}`;
 
+configuration.devtool = 'inline-source-map';
+
 configuration.plugins = configuration.plugins.concat(
     new webpack.DefinePlugin({
-        'process.env':
-        {
-            NODE_ENV: JSON.stringify('production')
-        },
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.BABEL_ENV': JSON.stringify('es6'),
 
         __CLIENT__: false,
         __SERVER__: true,
@@ -24,11 +24,11 @@ configuration.plugins = configuration.plugins.concat(
         __DEVELOPMENT__: true,
         __DEVTOOLS__: false
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-        names: ['global', 'vendor'],
-        children: true,
-        async: true,
-    })
+    // new webpack.optimize.CommonsChunkPlugin({
+    //     names: ['global', 'vendor'],
+    //     children: true,
+    //     async: true,
+    // })
 );
 
 export default configuration;

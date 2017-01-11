@@ -1,5 +1,4 @@
-module.exports =
-{
+export default {
     api: {
         host: 'http://demo-api.nichosting.dev.brainex.co/'
     },
