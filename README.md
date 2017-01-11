@@ -28,14 +28,4 @@ In this file you can define any PATH variables which you don't want to specify e
 
 	For more - see [this](https://github.com/motdotla/dotenv)
 
-4. Two options
-
-	- For development:
-
-	1. `npm run build-dll` - Builds the dll modules (speeds up the webpack's build)
-
-	2. `npm run dev`
-
-	+ For production: `npm run production`
-
-
+4. `npm run dev` or `npm run production`
