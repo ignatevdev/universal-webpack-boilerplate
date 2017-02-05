@@ -75,7 +75,11 @@ export default function (parameters) {
             return;
         }
 
-        res.status(200);
+        if (context.status) {
+            res.status(context.status);
+        } else {
+            res.status(200);
+        }
 
         for (const cookie of client.cookies) {
             res.set('Set-Cookie', cookie);

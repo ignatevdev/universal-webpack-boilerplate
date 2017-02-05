@@ -6,6 +6,24 @@ import {Home} from 'containers';
 
 require('./App.styl');
 
+class NotFound extends PureComponent {
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    }
+
+    componentWillMount() {
+        if (__SERVER__) {
+            this.context.router.staticContext.status = 404;
+        }
+    }
+
+    render() {
+        return (
+            <div>Not found</div>
+        );
+    }
+}
+
 export default class App extends PureComponent {
     static propTypes = {
         params: PropTypes.object
@@ -17,8 +35,6 @@ export default class App extends PureComponent {
     };
 
     render() {
-        const NotFound = () => <div>Not found</div>;
-
         return (
             <div>
                 <Helmet {...meta.head} />
