@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Provider} from 'react-redux';
-import {BrowserRouter} from 'react-router';
+import {BrowserRouter} from 'react-router-dom';
 import Wrapper from '../wrapper';
 
 export default class extends Component {

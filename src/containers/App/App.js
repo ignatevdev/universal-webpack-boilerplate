@@ -1,7 +1,7 @@
 import React, {PureComponent, PropTypes} from 'react';
 import Helmet from 'react-helmet';
 import meta from 'meta';
-import {Match, Miss} from 'react-router';
+import {Switch, Route} from 'react-router-dom';
 import {Home} from 'containers';
 
 require('./App.styl');
@@ -23,13 +23,15 @@ export default class App extends PureComponent {
             <div>
                 <Helmet {...meta.head} />
 
-                <Match
-                    exactly
-                    pattern="/"
-                    component={Home}
-                />
+                <Switch>
+                    <Route
+                        exact
+                        path="/"
+                        component={Home}
+                    />
 
-                <Miss component={NotFound} />
+                    <Route component={NotFound} />
+                </Switch>
             </div>
         );
     }

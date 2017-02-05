@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import path from 'path';
 import {Provider} from 'react-redux';
-import {ServerRouter, createServerRenderContext} from 'react-router';
+import {StaticRouter} from 'react-router-dom';
 
 import http from 'http';
 // import compression from 'compression';
@@ -35,8 +35,7 @@ export default function (parameters) {
             );
         };
 
-        const context = createServerRenderContext();
-        const result = context.getResult();
+        const context = {};
         const client = new ApiClient(req);
 
         const store = createStore(client);
@@ -50,12 +49,12 @@ export default function (parameters) {
 
         const component = (
             <Provider store={store}>
-                <ServerRouter
+                <StaticRouter
                     location={req.url}
                     context={context}
                 >
                     <Wrapper locale={req.headers['accept-language']} />
-                </ServerRouter>
+                </StaticRouter>
             </Provider>
         );
 
@@ -67,12 +66,16 @@ export default function (parameters) {
             />
         );
 
-        if (result.missed) {
-            res.status(404);
-        } else {
-            res.status(200);
+        if (context.url) {
+            res.writeHead(302, {
+              Location: context.url
+            });
+            res.end();
+
+            return;
         }
 
+        res.status(200);
 
         for (const cookie of client.cookies) {
             res.set('Set-Cookie', cookie);
