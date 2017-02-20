@@ -1,7 +1,7 @@
 import React, {PureComponent, PropTypes} from 'react';
 import Helmet from 'react-helmet';
 
-import {connect} from 'react-redux';
+import {asyncConnect} from 'redux-connect';
 import {bindActionCreators} from 'redux';
 
 import {increaseCounter, decreaseCounter} from 'store/modules/counter';
@@ -11,7 +11,20 @@ import {Information} from 'components/Icons';
 
 const styles = require('./Home.styl');
 
-@connect(
+@asyncConnect(
+    [
+        {
+            promise: () => {
+                console.log('fetching');
+
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, 2000);
+                });
+            }
+        }
+    ],
     state => ({
         count: state.getIn(['counter', 'home'], 0)
     }),

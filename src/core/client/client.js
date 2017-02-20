@@ -9,6 +9,7 @@ import createStore from 'store/create';
 
 import {AppContainer} from 'react-hot-loader';
 import Redbox from 'redbox-react';
+import {browserHistory} from 'react-router';
 import config from 'config';
 
 import ApiClient from '../helpers/ApiClient';
@@ -16,7 +17,7 @@ import Root from './root';
 
 const client = new ApiClient();
 const dest = document.getElementById('content');
-const store = createStore(client, window.__data);
+const store = createStore(browserHistory, client, window.__data);
 
 const browserLanguage = window.navigator.userLanguage || window.navigator.language;
 
@@ -24,7 +25,7 @@ const component = (
     <AppContainer errorReporter={Redbox}>
         <Root
             store={store}
-            history={history}
+            history={browserHistory}
             browserLanguage={browserLanguage}
             client={client}
         />
@@ -76,7 +77,7 @@ if (module.hot) {
             <AppContainer errorReporter={Redbox}>
                 <UpdatedRoot
                     store={store}
-                    history={history}
+                    history={browserHistory}
                     browserLanguage={browserLanguage}
                     client={client}
                 />

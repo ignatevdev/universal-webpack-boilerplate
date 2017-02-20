@@ -1,10 +1,23 @@
 import React, {Component, PropTypes} from 'react';
 import {LocaleProvider} from 'components';
-import {App} from 'containers';
 
 export default class Wrapper extends Component {
     static propTypes = {
+        children: PropTypes.node.isRequired,
+        context: PropTypes.object,
         locale: PropTypes.string
+    }
+    static childContextTypes = {
+        serverContext: PropTypes.object,
+        setStatus: PropTypes.func
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.getChildContext = function getChildContext() {
+            return {serverContext: props.context || {}};
+        };
     }
 
     render() {
@@ -12,7 +25,7 @@ export default class Wrapper extends Component {
 
         return (
             <LocaleProvider locale={locale}>
-                <App />
+                {this.props.children}
             </LocaleProvider>
         );
     }

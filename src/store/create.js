@@ -2,7 +2,7 @@ import {createStore as _createStore, applyMiddleware, compose} from 'redux';
 import Immutable from 'immutable';
 import createMiddleware from './middleware/clientMiddleware';
 
-export default function createStore(client, originalData) {
+export default function createStore(history, client, originalData) {
     const data = Immutable.fromJS(originalData);
     // Sync dispatched route actions to the history
 

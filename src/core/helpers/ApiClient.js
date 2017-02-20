@@ -2,6 +2,8 @@ import superagent from 'superagent';
 import config from 'config';
 import {isAbsoluteURL} from 'utils';
 
+import isNil from 'lodash/isNil';
+
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 function formatUrl(path) {
@@ -23,7 +25,7 @@ function formatUrl(path) {
 }
 
 export default class {
-    constructor(req) {
+    constructor() {
         this.cookies = [];
 
         methods.forEach((method) => {
@@ -41,7 +43,15 @@ export default class {
                         request.send(data);
                     }
 
-                    request.end((err, {body} = {}) => (err ? reject(body || err) : resolve(body)));
+                    request.end((err, {body, header} = {}) => {
+                        if (!isNil(header) && !isNil(header['set-cookie'])) {
+                            this.cookies.push(header['set-cookie']);
+                        }
+
+                        return err
+                            ? reject(body || err)
+                            : resolve(body);
+                    });
                 }
             );
         });
