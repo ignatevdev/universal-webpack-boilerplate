@@ -10,7 +10,7 @@ This project is a massive rework of [this boilerplate](https://github.com/halt-h
 + Webpack 2
 + Fully immutable state
 + ESLINT
-+ react-router 4 (currently beta)
++ react-router 3
 + react-hot-loader 3
 + Own component for supporting native gettext localization
 
