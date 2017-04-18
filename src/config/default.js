@@ -1,6 +1,6 @@
 export default {
     api: {
-        host: 'http://demo-api.nichosting.dev.brainex.co/'
+        host: ''
     },
     disable_ssr: false,
     server:
